@@ -19,7 +19,7 @@ class Topic(models.Model):
 #  one borde can have many topic 
     subject= models.CharField(max_length=150)
     #  on_delete=> when user delet topic it will deleted from borde also
-    board = models.ForeignKey(category,related_name='topics',on_delete=models.CASCADE)
+    category = models.ForeignKey(category,related_name='topics',on_delete=models.CASCADE)
     created_by= models.ForeignKey(User,related_name='topics',on_delete=models.CASCADE)
     #  to add time auto use DateTimeField(auto_now_add=True)
     created_dt =models.DateTimeField(auto_now_add=True)
