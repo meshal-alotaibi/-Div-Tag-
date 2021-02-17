@@ -18,7 +18,7 @@ class Category(models.Model):
 
 class Topic(models.Model):
     #  1=>m relation between Board and Topic
-#  one borde can have many topic 
+    #  one borde can have many topic 
     subject= models.CharField(max_length=150)
     #  on_delete=> when user delet topic it will deleted from borde also
     category = models.ForeignKey(Category,related_name='topics',on_delete=models.CASCADE)
@@ -29,7 +29,9 @@ class Topic(models.Model):
     # method convert object to string
 
     def __str__(self):
-       return self.name
+       return self.subject
+    
+
 
 
 class Post(models.Model):
@@ -40,6 +42,7 @@ class Post(models.Model):
      
     # method convert object to string
 
-    def __str__(self):
-       return self.name
+       
+
+
 
