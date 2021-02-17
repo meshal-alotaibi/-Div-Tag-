@@ -18,7 +18,7 @@
             <div class="card-body d-flex flex-column align-items-start">
               <strong class="d-inline-block mb-2 text-success">{{topic.category}}</strong>
               <h3 class="mb-0">
-                <a class="text-dark" href="#">{{topic.subject}}</a>
+                <a class="text-dark" href="{%url 'topic' topic.category.pk topic.pk%}">{{topic.subject}}</a>
               </h3>
               <div class="mb-1 text-muted">{{topic.created_dt}}</div>
               <p class="card-text mb-auto">{{topic.created_by}}</p>
