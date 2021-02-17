@@ -1,2 +1,37 @@
 {% extends 'base.html' %}
-{% block title%} {{category.name}} {% endblock%}
+{%block title%}{{board.name}} {%endblock%}
+{% block breadcrumb %}
+
+   <li ><a href="/">Category</a></li>
+        <li >{{category.name}}</li>
+{%endblock%}
+
+
+{% block content %}
+<a href="{% url 'new_topic' category.pk %}" class="btn btn-primary">New topic</a>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>Topic</th>
+        <th>Created by</th>
+        <th>Posts</th>
+        <th>Views</th>
+        <th>Created dt</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%for topic in category.topics.all%}
+    <tr>
+        <td>{{ topic.subject}}</td>
+        <td>{{ topic.created_by.username}}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>{{ topic.created_dt}}</td>
+
+    </tr>
+    {%endfor%}
+
+    </tbody>
+</table>
+{% endblock %}
