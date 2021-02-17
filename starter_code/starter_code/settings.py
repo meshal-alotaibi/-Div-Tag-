@@ -78,8 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blogs',
-        'PASSWORD':'',
+        'PASSWORD':'123123',
         'USER': 'postgres',
+        
     }
 }
 
@@ -121,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+#to redirect if user is already reg into home page
+LOGIN_REDIRECT_URL='home'

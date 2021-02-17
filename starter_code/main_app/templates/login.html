@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>login</title>
+</head>
+<body>
+
+
+<div class="container">
+<h1>login</h1>
+
+<form method="post" novalidate>
+    {% csrf_token%}
+    {{form.as_p}}
+    <button type="login" class="btn btn-primary">Login</button>
+</form>
+
+</div>
+
+
+</body>
+</html>
