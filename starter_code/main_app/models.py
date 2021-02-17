@@ -32,7 +32,4 @@ class Post(models.Model):
     created_by= models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE)
     created_dt =models.DateTimeField(auto_now_add=True)
 
-class User(models.Model):
-    username= models.CharField(max_length=20)
-    password=models.CharField(max_length=20)
-    isAdmin : models.BooleanField
+
