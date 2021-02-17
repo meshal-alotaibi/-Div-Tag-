@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%} {{topic.subject}} {% endblock%}
+
+
+       {% block content %}
+
+      {% for post in topic.posts.all %}
+      <div class="media">
+          <img class="align-self-start mr-3" src="{% static 'img/user.png' %}" alt="{{post.created_by.username}}" style="width:80px" >
+         <div class="media-body">
+              <h5 class="mt-0"> {{post.created_by.username}}</h5>
+              <p>{{post.message}}</p>
+              <p>{{post.created_dt}}</p>
+
+              {% if  post.created_by == user %}
+              <a href="#">edit</a>
+
+              {%endif%}
+          </div>
+      </div>
+
+      {%endfor%}
+
+       {% endblock%}

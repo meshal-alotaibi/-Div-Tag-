@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>signup</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+</head>
+<body>
+<div class="container">
+<h1>sign up</h1>
+<form method="POST" novalidate>
+    {% csrf_token%}
+    {{ form.as_p}}
+    <button type="submit" class="btn btn-primary">signup</button>
+     
+    <a href="/login">have acount?</a>
+</form>
+</div>
+</body>
+</html>
