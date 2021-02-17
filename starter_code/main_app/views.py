@@ -35,3 +35,23 @@ def signup(request):
 
 
 
+def new_topic(request,board_id):
+    category = get_object_or_404(Category,pk=category_id)
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        message = request.POST['message']
+        user = User.objects.first()
+
+        topic = Topic.objects.create(
+            subject=subject,
+            category=category,
+            created_by=user
+        )
+
+        post = Post.objects.create(
+            message=message,
+            topic=topic,
+            created_by=user
+        )
+        return redirect('category_topics',category_id=category.pk)
+    return render(request,'new_topic.html',{'category':category})
