@@ -37,7 +37,7 @@ def signup(request):
 
 
 def new_topic(request,board_id):
-    category = get_object_or_404(Category,pk=category_id)
+    category = get_object_or_404(Category,category__pk=category_id,)
     if request.method == 'POST':
         subject = request.POST['subject']
         message = request.POST['message']
