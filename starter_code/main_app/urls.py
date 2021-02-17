@@ -11,5 +11,7 @@ urlpatterns = [
          views.category_topics, name='category_topics'),
     path('category/<int:category_id>/topics/<int:topic_id>/',
          views.topic, name='topic'),
+    path('boards/<int:board_id>/new/',views.new_topic,name='new_topic')
+
 
 ]

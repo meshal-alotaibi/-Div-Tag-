@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as auth_login
 from django.shortcuts import render , get_object_or_404
-from .models import Category , Topic
+from .models import Category , Topic,Post
+from django.contrib.auth.models import User
 
 # Create your views here.
 
