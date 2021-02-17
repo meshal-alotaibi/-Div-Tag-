@@ -1,3 +1,15 @@
+
+from django.shortcuts import render
+from .models import Category
+
+# Create your views here.
+
+def index(request):
+    category = Category.objects.all()
+    print(category)
+    return render(request, 'home.html', {'categories':  category})
+
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
@@ -20,5 +32,6 @@ def signup(request):
             
 
     return render(request,'signup.html',{'form':form})
+
 
 
