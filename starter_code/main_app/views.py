@@ -40,23 +40,6 @@ def topic(request, category_id , topic_id):
         form = PostForm()
     return render(request, 'topic.html', {'topic': topic , 'form' : form})
 
-# @login_required
-# def post(request, category_id, topic_id):
-#     topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
-#     if request.method == "POST":
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.topic = topic
-#             post.created_by = request.user
-#             post.save() 
-#             return render('topic', category_id=category_id, topic_pk= topic_id)
-#     else:
-#         form = PostForm()
-
-#     return render(request, 'topic.html', {'topic': topic})
-
-
 def signup(request):
     form=UserCreationForm()
     if request.method =='POST':
