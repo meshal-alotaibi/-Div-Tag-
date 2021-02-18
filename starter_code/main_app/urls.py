@@ -11,4 +11,6 @@ urlpatterns = [
          views.category_topics, name='category_topics'),
     path('category/<int:category_id>/topics/<int:topic_id>/',
          views.topic, name='topic'),
+    path('settings/change_password', auth_views.PasswordChangeView.as_view(template_name='chang_pass.html'),name='password'),
+    path('settings/change_password/done',auth_views.PasswordChangeDoneView.as_view(template_name='pass_done.html'),name='pass_done')     
 ]

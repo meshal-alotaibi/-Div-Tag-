@@ -26,10 +26,12 @@ class Topic(models.Model):
     #  to add time auto use DateTimeField(auto_now_add=True)
     created_dt =models.DateTimeField(auto_now_add=True)
 
+
+
     # method convert object to string
 
     def __str__(self):
-       return self.name
+       return self.subject
 
 
 class Post(models.Model):
@@ -40,6 +42,4 @@ class Post(models.Model):
      
     # method convert object to string
 
-    def __str__(self):
-       return self.name
 

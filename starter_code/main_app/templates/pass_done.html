@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title%} change password successful{% endblock%}
+
+    {% block content %}
+    <li >
+    <div class="container">
+        <form method="POST" novalidate>
+            {% csrf_token%}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">change password</button>
+        </form>
+    </div>
+    {% endblock%}
