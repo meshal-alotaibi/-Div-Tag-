@@ -26,7 +26,11 @@
     <tr>
         <td><a href="{%url 'topic' category.pk  topic.pk%}">{{ topic.subject}}</a></td>
         <td>{{ topic.created_by.username}}</td>
+ Posts-CountForEachCatogry
+        <td>{{topic.topicPost}}</td>
+
         <td>{{topic.comments}}</td>
+
         <td>0</td>
         <td>{{ topic.created_dt}}</td>
 

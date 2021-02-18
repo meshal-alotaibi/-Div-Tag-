@@ -22,7 +22,11 @@ def category_topics(request, category_id):
     categories = Category.objects.all()
     category = get_object_or_404(Category ,pk=category_id)
     topics = category.topics.order_by('-created_dt').annotate(topicPost=Count('posts'))
+
+    return render(request, 'topics.html', {'categories': categories, 'category': category,'topics':topics})
+
     return render(request, 'topics.html', {'categories': categories, 'category': category})
+
 
 
 @login_required
