@@ -1,0 +1,9 @@
+/starter_code/settings.py
+.DS_Store
+/starter_code/.DS_Store
+/main_app/.DS_Store
+/main_app/static/.DS_Store
+/.DS_Store
+/starter_code/__pycache__
+/main_app/__pycache__
+/main_app/migrations/__pycache__
