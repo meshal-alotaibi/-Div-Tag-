@@ -3,7 +3,6 @@
 <head>
 <title>login</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
-
 </head>
 <body>
 
@@ -13,6 +12,7 @@
     {% csrf_token%}
     {{form.as_p}}
     <button type="login" class="btn btn-primary">Login</button>
+     <a href="/signup">create new account</a>
 </form>
 </div>
 

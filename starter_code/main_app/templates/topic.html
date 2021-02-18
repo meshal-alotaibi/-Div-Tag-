@@ -1,25 +1,58 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block title%} {{topic.subject}} {% endblock%}
+ {% load static %} 
+ {% block title%}
+  {{topic.subject}}
+{% endblock%} 
 
+{% block content %}
 
-       {% block content %}
+<div class="container">
+  <div class="row d-flex">
+    <div class="col-lg-8 px-md-5 py-5">
+      <div class="row pt-md-4">
+        <h1 class="mb-3">{{topic.subject}}</h1>
+        <p>{{topic.content_text}}</p>
 
-      {% for post in topic.posts.all %}
-      <div class="media">
-          <img class="align-self-start mr-3" src="{% static 'img/user.png' %}" alt="{{post.created_by.username}}" style="width:80px" >
-         <div class="media-body">
-              <h5 class="mt-0"> {{post.created_by.username}}</h5>
-              <p>{{post.message}}</p>
-              <p>{{post.created_dt}}</p>
+        <div class="pt-5 mt-5">
+          <h3 class="mb-5 font-weight-bold">Comments</h3>
+          <ul class="comment-list">
+            {% for post in topic.posts.all %}
+            <li class="comment">
+              <div class="vcard bio">
+                <img
+                  src="{% static 'img/user.png' %}"
+                  alt="Image placeholder"
+                  style="width: 50px;"
+                />
+              </div>
+              <div class="comment-body">
+                <h3>{{post.created_by.username}}</h3>
+                <div class="meta">{{post.created_dt}}</div>
+                <p>{{post.message}}</p>
+                {% if post.created_by == user %}
+                <p><a href="#" class="reply">edit</a></p>
+                {%endif%}
+              </div>
+              {%endfor%}
+            </li>
+          </ul>
 
-              {% if  post.created_by == user %}
-              <a href="#">edit</a>
-
-              {%endif%}
+          <div class="comment-form-wrap pt-5">
+            <h3 class="mb-5">Leave a comment</h3>
+            <form method="post" class="p-3 p-md-5 bg-light" novalidate>
+              {% csrf_token %}
+               {% include 'includes/form.html' %}
+                <button
+                  type="submit"
+                  class="btn btn-success">
+                  Post Comment </button>
+            
+            </form>
           </div>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
 
-      {%endfor%}
-
-       {% endblock%}
+{% endblock%}
