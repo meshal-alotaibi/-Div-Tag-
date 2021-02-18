@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as auth_login
 from django.shortcuts import render , get_object_or_404
 from .models import Category , Topic , Post
-from .forms import PostForm
+from .forms import PostForm, NewTopicForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -35,7 +35,7 @@ def topic(request, category_id , topic_id):
             post.created_by = request.user
             post.save()
 
-            return redirect('topic', category_id= category.id, topic_id = topic_pk)
+            return redirect('topic', category_id=topic.category.id, topic_id=topic.pk)
     else:
         form = PostForm()
     return render(request, 'topic.html', {'topic': topic , 'form' : form})
@@ -51,24 +51,18 @@ def signup(request):
     return render(request,'signup.html',{'form':form})
 
 
+@login_required
+def new_topic(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    if request.method == "POST":
+        form = NewTopicForm(request.POST)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.category = category
+            topic.created_by = request.user
+            topic.save()
 
-def new_topic(request,category_id):
-    category = get_object_or_404(Category ,pk=category_id)
-    if request.method == 'POST':
-        subject = request.POST['subject']
-        message = request.POST['message']
-        user = User.objects.first()
-
-        topic = Topic.objects.create(
-            subject=subject,
-            category=category,
-            created_by=user
-        )
-
-        post = Post.objects.create(
-            message=message,
-            topic=topic,
-            created_by=user
-        )
-        return redirect('category_topics ',category_id=category.pk)
-    return render(request,'new_topic.html',{'category':category})
+            return redirect('category_topics', category_id=category.pk)
+    else:
+        form = NewTopicForm()
+    return render(request, 'new_topic.html', {'category': category, 'form': form})
