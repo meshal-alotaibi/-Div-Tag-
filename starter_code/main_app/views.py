@@ -51,9 +51,8 @@ def signup(request):
     return render(request,'signup.html',{'form':form})
 
 
-
 def new_topic(request,category_id):
-    category = get_object_or_404(Category ,pk=category_id)
+    category = get_object_or_404(Category,pk=category_id)
     if request.method == 'POST':
         subject = request.POST['subject']
         message = request.POST['message']
@@ -70,5 +69,9 @@ def new_topic(request,category_id):
             topic=topic,
             created_by=user
         )
-        return redirect('category_topics ',category_id=category.pk)
+        return redirect('category_topics',category_id=category.pk)
     return render(request,'new_topic.html',{'category':category})
+
+
+
+
