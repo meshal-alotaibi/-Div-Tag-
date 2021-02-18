@@ -18,15 +18,15 @@
         <th>Created by</th>
         <th>Posts</th>
         <th>Views</th>
-        <th>Created dt</th>
+        <th>Created date</th>
     </tr>
     </thead>
     <tbody>
-    {%for topic in category.topics.all%}
+    {%for topic in topics%}
     <tr>
-        <td>{{ topic.subject}}</td>
+        <td><a href="{%url 'topic' category.pk  topic.pk%}">{{ topic.subject}}</a></td>
         <td>{{ topic.created_by.username}}</td>
-        <td>0</td>
+        <td>{{topic.comments}}</td>
         <td>0</td>
         <td>{{ topic.created_dt}}</td>
 

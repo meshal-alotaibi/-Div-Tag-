@@ -8,7 +8,7 @@ from .models import Category , Topic , Post
 from .forms import PostForm, NewTopicForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Count
 # Create your views here.
 
 def index(request):
@@ -21,6 +21,7 @@ def index(request):
 def category_topics(request, category_id):
     categories = Category.objects.all()
     category = get_object_or_404(Category ,pk=category_id)
+    topics = category.topics.order_by('-created_dt').annotate(topicPost=Count('posts'))
     return render(request, 'topics.html', {'categories': categories, 'category': category})
 
 
@@ -90,3 +91,9 @@ def new_topic(request, category_id):
     else:
         form = NewTopicForm()
     return render(request, 'new_topic.html', {'category': category, 'form': form})
+
+
+# def topic_Posts(request,category_id,topic_id):
+#     topic =get_object_or_404(Topic,category__pk=category_id,pk=topic_id)
+
+#     return render(request,'topic_Posts.html',{'topic':topic})
