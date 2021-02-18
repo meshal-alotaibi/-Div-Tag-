@@ -54,5 +54,5 @@ def new_topic(request,category_id):
             topic=topic,
             created_by=user
         )
-        return redirect('category_topics',category_id=category.pk)
+        return redirect('category_topics ',category_id=category.pk)
     return render(request,'new_topic.html',{'category':category})
