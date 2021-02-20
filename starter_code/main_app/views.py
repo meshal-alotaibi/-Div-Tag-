@@ -22,12 +22,18 @@ def category_topics(request, category_id):
     categories = Category.objects.all()
     category = get_object_or_404(Category ,pk=category_id)
     topics = category.topics.order_by('-created_dt').annotate(topicPost=Count('posts'))
+
+    return render(request, 'topics.html', {'categories': categories, 'category': category,'topics':topics})
+
     return render(request, 'topics.html', {'categories': categories, 'category': category})
+
 
 
 @login_required
 def topic(request, category_id , topic_id):
     topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
+    topic.views +=1
+    topic.save()
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -50,6 +56,30 @@ def signup(request):
             auth_login(request,user)
             return redirect('/')
     return render(request,'signup.html',{'form':form})
+
+
+def new_topic(request,category_id):
+    category = get_object_or_404(Category,pk=category_id)
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        message = request.POST['message']
+        user = User.objects.first()
+
+        topic = Topic.objects.create(
+            subject=subject,
+            category=category,
+            created_by=user
+        )
+
+        post = Post.objects.create(
+            message=message,
+            topic=topic,
+            created_by=user
+        )
+        return redirect('category_topics',category_id=category.pk)
+    return render(request,'new_topic.html',{'category':category})
+
+
 
 
 @login_required

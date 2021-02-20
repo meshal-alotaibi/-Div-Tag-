@@ -1,14 +1,15 @@
+
 {% extends 'base.html' %}
 {%block title%}{{board.name}} {%endblock%}
 {% block breadcrumb %}
 
-   <li ><a href="/">Category</a></li>
-        <li >{{category.name}}</li>
+   <li><a href="/">Boards</a></li>
+        <li>{{category.name}}</li>
 {%endblock%}
 
 
 {% block content %}
-<a href="{% url 'new_topic' category.pk %} " class="btn btn-primary">New topic</a>
+<a href="{% url 'new_topic' category.pk %}" class="btn btn-primary">New topic</a>
 
 <table class="table">
     <thead class="thead-dark">
@@ -25,8 +26,9 @@
     <tr>
         <td><a href="{%url 'topic' category.pk  topic.pk%}">{{ topic.subject}}</a></td>
         <td>{{ topic.created_by.username}}</td>
+        <td>{{topic.topicPost}}</td>
         <td>{{topic.comments}}</td>
-        <td>0</td>
+        <td>{{topic.views}}</td>
         <td>{{ topic.created_dt}}</td>
 
     </tr>

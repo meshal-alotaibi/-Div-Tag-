@@ -28,6 +28,7 @@ class Topic(models.Model):
     created_by= models.ForeignKey(User,related_name='topics',on_delete=models.CASCADE)
     #  to add time auto use DateTimeField(auto_now_add=True)
     created_dt = models.DateTimeField(default=timezone.now)
+    views= models.PositiveIntegerField(default=0)
     
 
     # method convert object to string
