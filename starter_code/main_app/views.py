@@ -2,7 +2,7 @@ import django
 from django.http.response import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import SESSION_KEY, login as auth_login
 from django.shortcuts import render , get_object_or_404
 from .models import Category , Topic , Post
 from .forms import PostForm, NewTopicForm
@@ -32,8 +32,11 @@ def category_topics(request, category_id):
 @login_required
 def topic(request, category_id , topic_id):
     topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
-    topic.views +=1
-    topic.save()
+    SESSION_KEY = 'view_topic_{}'.format(topic.pk)
+    if not request.session.get(SESSION_KEY,False):
+        topic.views +=1
+        topic.save()
+        request.session[SESSION_KEY]=True
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
