@@ -12,6 +12,12 @@
       <div class="row pt-md-4">
         <h1 class="mb-3">{{topic.subject}}</h1>
         <p>{{topic.content_text}}</p>
+         {% if topic.created_by == user %}
+                <p>
+                  <a href="{% url 'update_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-success">edit</a>
+                  <a href="{% url 'delete_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-danger">delete</a>
+                </p>
+                {%endif%}
 
         <div class="pt-5 mt-5">
           <h3 class="mb-5 font-weight-bold">Comments</h3>
@@ -30,7 +36,10 @@
                 <div class="meta">{{post.created_dt}}</div>
                 <p>{{post.message}}</p>
                 {% if post.created_by == user %}
-                <p><a href="#" class="reply">edit</a></p>
+                <p>
+                  <a href="{% url 'update_post' post.topic.category_id post.topic_id post.id %}" class="replay btn btn-sm btn-outline-success">edit</a>
+                  <a href="{%url 'delete_post' post.topic.category_id post.topic_id post.id%}" class="replay btn btn-sm btn-outline-danger">delete</a>
+                </p>
                 {%endif%}
               </div>
               {%endfor%}

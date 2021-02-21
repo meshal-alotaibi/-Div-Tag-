@@ -9,6 +9,8 @@ from .forms import PostForm, NewTopicForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.urls import reverse
 # Create your views here.
 
 def index(request):
@@ -83,25 +85,62 @@ def new_topic(request,category_id):
 
 
 
+class topicCreate(CreateView):
+  model = Topic
+  fields = ['subject',
+            'content_text', ]
 
-@login_required
-def new_topic(request, category_id):
-    category = get_object_or_404(Category, pk=category_id)
-    if request.method == "POST":
-        form = NewTopicForm(request.POST)
-        if form.is_valid():
-            topic = form.save(commit=False)
-            topic.category = category
-            topic.created_by = request.user
-            topic.save()
+  def form_valid(self, form):
+    form.instance.created_by_id = self.request.user.id
+    form.instance.category_id = self.kwargs['category_id']
+    return super(topicCreate, self).form_valid(form)
 
-            return redirect('category_topics', category_id=category.pk)
-    else:
-        form = NewTopicForm()
-    return render(request, 'new_topic.html', {'category': category, 'form': form})
+  def get_success_url(self):
+      topic = get_object_or_404(Topic, pk=self.object.id)
+      return reverse('topic', args=[topic.category.pk, self.object.id]
+                     )
 
 
-# def topic_Posts(request,category_id,topic_id):
-#     topic =get_object_or_404(Topic,category__pk=category_id,pk=topic_id)
 
-#     return render(request,'topic_Posts.html',{'topic':topic})
+class topicUpdate(UpdateView):
+    model = Topic
+    fields = ['subject',
+              'content_text',]
+
+    def get_success_url(self):
+        topic = get_object_or_404(Topic, pk=self.object.id)
+        return reverse('topic', args=[topic.category.pk , self.object.id]
+                       )
+
+
+class topicDelete(DeleteView):
+    model = Topic
+
+    def get_success_url(self):
+        topic = get_object_or_404(Topic, pk=self.object.id)
+        category = topic.category.pk
+        return reverse('category_topics', args=[category]
+                       )
+
+
+class postUpdate(UpdateView):
+    model = Post
+    fields = ['message', ]
+
+    def get_success_url(self):
+        post = get_object_or_404(Post, pk=self.object.id)
+        category = post.topic.category.pk
+        topic = post.topic_id
+        return reverse('topic', args=[category, topic])
+
+class postDelete(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        post = get_object_or_404(Post, pk=self.object.id)
+        category = post.topic.category.pk
+        topic = post.topic_id
+        return reverse('topic', args=[category, topic]
+                       )
+
+
