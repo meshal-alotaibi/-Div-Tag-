@@ -14,7 +14,9 @@ urlpatterns = [
     path('category/<int:category_id>/new/',views.new_topic,name='new_topic'),
     path('setting/change_password',auth_views.PasswordChangeView.as_view(template_name='chang_pass.html'),name='change_password'),
     path('setting/change_password_successful',auth_views.PasswordChangeDoneView.as_view(template_name='pass_done.html'),name='pass_done'),
-    path('logout/', auth_views.LogoutView.as_view(),name='logout')
+    path('logout/', auth_views.LogoutView.as_view(),name='logout'),
+    path('category/<int:category_id>/topics/<int:topic_id>/delete/<int:pk>/',
+         views.postDelete.as_view(), name='delete_post'),
 
 
 ]
