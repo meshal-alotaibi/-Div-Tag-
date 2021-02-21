@@ -25,7 +25,6 @@ def category_topics(request, category_id):
 
     return render(request, 'topics.html', {'categories': categories, 'category': category,'topics':topics})
 
-    return render(request, 'topics.html', {'categories': categories, 'category': category})
 
 
 
