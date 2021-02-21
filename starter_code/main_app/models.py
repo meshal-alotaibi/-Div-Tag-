@@ -7,6 +7,7 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=50,unique=True)
     description = models.CharField(max_length=150)
+    img = models.CharField(max_length=1000)
     
     # method convert object to string
 
