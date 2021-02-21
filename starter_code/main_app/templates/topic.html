@@ -30,7 +30,7 @@
                 <div class="meta">{{post.created_dt}}</div>
                 <p>{{post.message}}</p>
                 {% if post.created_by == user %}
-                <p><a href="#" class="replay btn btn-sm btn-outline-success">edit</a>
+                <p><a href="{% url 'post_update' post.topic.category.pk post.topic.pk post.pk %}" class="replay btn btn-sm btn-outline-success">edit</a>
                     <a href="{%url 'delete_post' post.topic.category_id post.topic_id post.id%}" class="replay btn btn-sm btn-outline-danger">delete</a></p>
                 {%endif%}
               </div>

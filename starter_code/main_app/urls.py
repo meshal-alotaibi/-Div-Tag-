@@ -17,6 +17,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
     path('category/<int:category_id>/topics/<int:topic_id>/delete/<int:pk>/',
          views.postDelete.as_view(), name='delete_post'),
-
-
+    path('category/<int:category_id>/topics/<int:topic_id>/edit/<slug:pk>/', views.postUpdate.as_view(), name='post_update')
 ]

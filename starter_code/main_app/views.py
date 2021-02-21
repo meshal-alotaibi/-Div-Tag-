@@ -114,6 +114,16 @@ class postDelete(DeleteView):
         return reverse('topic', args=[category, topic]
                        )
 
+
+class postUpdate(UpdateView):
+    model = Post
+    fields = ['message', ]
+    def get_success_url(self):
+        post = get_object_or_404(Post, pk=self.object.id)
+        category = post.topic.category.pk
+        topic = post.topic_id
+        return reverse('topic', args=[category,topic])   
+
 # def topic_Posts(request,category_id,topic_id):
 #     topic =get_object_or_404(Topic,category__pk=category_id,pk=topic_id)
 
