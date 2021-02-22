@@ -20,8 +20,8 @@ class Category(models.Model):
     def get_topic_count(self):
         return Topic.objects.filter(category=self).count()
 
-    def get_last_post(self):
-        return Post.objects.filter(topic__category=self).order_by('-created_dt').first()
+    def get_last_topic(self):
+        return Topic.objects.filter(category=self).order_by('-created_dt').first()
 
      
 
@@ -41,6 +41,7 @@ class Topic(models.Model):
     #  to add time auto use DateTimeField(auto_now_add=True)
     created_dt = models.DateTimeField(default=timezone.now)
     views= models.PositiveIntegerField(default=0)
+    img = models.CharField(max_length=1000)
     
 
     # method convert object to string
