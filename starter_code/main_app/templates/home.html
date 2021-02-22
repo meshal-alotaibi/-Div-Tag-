@@ -21,7 +21,19 @@
                 <a class="text-dark" href="{% url 'topics' category.pk %}">{{category.name}}</a>
               </h3>
               <div class="mb-1 text-muted">{{category.descriptipn}}</div>
-              <!-- <p class="card-text mb-auto">{{topic.created_by}}</p> -->
+              <p  class="card-text mb-auto"> Post : {{category.get_posts_count}}  </p>
+              <p  class="card-text mb-auto">Topic : {{category.get_topic_count}} </p>
+              <p  class="card-text mb-auto">Last Post : 
+                {% with post=category.get_last_post %}
+                {% if post %}
+                
+                by {{post.created_by.username}} at {{post.created_dt}}
+                {% else %} 
+                <small> No Post </small>
+                {% endif %}
+                {% endwith %} </p>
+               
+              
             </div>
             <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" src='{{category.img}}'data-holder-rendered="true" style="width: 200px; height: 250px;">
           </div>
