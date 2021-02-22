@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import SESSION_KEY, login as auth_login
 from django.shortcuts import render , get_object_or_404
 from .models import Category , Topic , Post
-from .forms import PostForm, NewTopicForm
+from .forms import PostForm, NewTopicForm, CreateUserForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -27,14 +27,13 @@ def category_topics(request, category_id):
 
     return render(request, 'topics.html', {'categories': categories, 'category': category,'topics':topics})
 
-    r
 
 
 
 def signup(request):
-    form=UserCreationForm()
+    form=CreateUserForm()
     if request.method =='POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             user= form.save()
             auth_login(request,user)
