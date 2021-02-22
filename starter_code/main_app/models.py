@@ -14,6 +14,7 @@ class Category(models.Model):
     def __str__(self):
        return self.name
 
+
     def get_posts_count(self):
         return Post.objects.filter(topic__category=self).count()
 

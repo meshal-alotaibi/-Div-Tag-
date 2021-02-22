@@ -16,9 +16,6 @@ urlpatterns = [
          auth_views.PasswordChangeDoneView.as_view(template_name='pass_done.html'), name='pass_done'),
 
     #url for the topics page 
-    path('category/<int:category_id>/',
-         views.category_topics, name='topics'),
-
     # url CRUD for topic
     path('category/<int:category_id>/new/',
          views.topicCreate.as_view(), name='create_topic'),
