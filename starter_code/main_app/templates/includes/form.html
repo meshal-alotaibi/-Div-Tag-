@@ -1,9 +1,9 @@
 {% load widget_tweaks %}
 {%for field in form %}
 {% for field in form %}
-    <div class="fieldWrapper">
+    <div class="fieldWrapper" ALIGN='center'>
         {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
+        {{ field }}
         {% if field.help_text %}
         <p class="help">{{ field.help_text|safe }}</p>
         {% endif %}

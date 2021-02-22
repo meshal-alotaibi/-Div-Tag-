@@ -6,65 +6,126 @@
 
 {% block content %}
 
-<div class="container">
+  <!--Main layout-->
+  <main class="mt-4 pt-4">
+    <div class="container">
 
-  <div class="row d-flex">
-    <div class="col-lg-8 px-md-5 py-5">
-      <div class="row pt-md-4">
-        <h1 class="mb-3">{{topic.subject}}</h1>
-        <p>{{topic.content_text}}</p>
-         {% if topic.created_by == user %}
+      <!--Section: Post-->
+      <section class="mt-4">
+
+        <!--Grid row-->
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-md-8 mb-4">
+
+            <!--Featured Image-->
+            <div class="card mb-4 wow fadeIn">
+
+              <img src="{{topic.img}}" class="img-fluid" alt="{{topic.subject}}">
+
+            </div>
+            <!--/.Featured Image-->
+
+
+            <!--Card-->
+            <div class="card mb-4 wow fadeIn">
+
+              <!--Card content-->
+              <div class="card-body">
+                 {% if topic.created_by == user %}
          
                 <p>
                   <a href="{% url 'update_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-success">edit</a>
                   <a href="{% url 'delete_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-danger">delete</a>
                 </p>
                 {%endif%}
+                <p class="h1 my-4">{{topic.subject}} </p>
 
-        <div class="pt-5 mt-5">
-          <h3 class="mb-5 font-weight-bold">Comments</h3>
-          <ul class="comment-list">
-            {% for post in topic.posts.all %}
-            <li class="comment">
-              <div class="vcard bio">
-                <img
-                  src="{% static 'img/user.png' %}"
-                  alt="Image placeholder"
-                  style="width: 50px;"
-                />
+
+                <blockquote class="blockquote">
+                  <footer class="blockquote-footer">Created by : 
+                    <cite title="Source Title">{{topic.created_by.username}}</cite>
+                    <p style="text-align: right;" ></p>
+                     {{topic.created_dt}}</small> </cite>
+                  </footer>
+                </blockquote>
+
+
+                <p>{{topic.content_text}}</p>
+
               </div>
-              <div class="comment-body">
-                <h3>{{post.created_by.username}}</h3>
-                <div class="meta">{{post.created_dt}}</div>
-                <p>{{post.message}}</p>
-                {% if post.created_by == user %}
+
+            </div>
+              
+
+
+            <!--/.Card-->
+             <h3>comments</h3>
+            <!--commentCard-->
+             {% for post in topic.posts.all %}
+            <div class="card mb-4 wow fadeIn">
+
+              <div class="card-header font-weight-bold">
+                <span>{{post.created_by.username}} </span>
+              </div>
+
+              <!--commentCard content-->
+              <div class="card-body">
+
+                <div class="media d-block d-md-flex mt-3">
+                  <img class="d-flex mb-3 mx-auto z-depth-1" src="{% static 'img/user.png' %}"
+                    alt="Generic placeholder image" style="width: 100px;">
+                  <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                    <h5 class="mt-0 font-weight-bold">{{post.created_dt}}
+                    </h5>
+                    {{post.message}}
+                  </div>
+                  {% if post.created_by == user %}
                 <p>
                   <a href="{% url 'update_post' post.topic.category_id post.topic_id post.id %}" class="replay btn btn-sm btn-outline-success">edit</a>
                   <a href="{%url 'delete_post' post.topic.category_id post.topic_id post.id%}" class="replay btn btn-sm btn-outline-danger">delete</a>
                 </p>
                 {%endif%}
+                </div>
+
               </div>
-              {%endfor%}
-            </li>
-          </ul>
-          {% if user.is_authenticated %}
-          <div class="comment-form-wrap pt-5">
-            <h3 class="mb-5">Leave a comment</h3>
-            <form method="post" class="p-3 p-md-5 bg-light" >
-              {% csrf_token %}
+
+            </div>
+             {%endfor%}
+            <!--/.commentCard-->
+
+               <!--/.Comments-->
+
+
+            <h3>Leave a Comment </h3>
+            <!--CreateComment-->
+            <div class="card mb-3 wow fadeIn">
+              
+              <div class="card-body">
+              {% if user.is_authenticated %}
+                <!-- Default form comment -->
+                <form>
+
+                  <!-- Comment -->
+                  <div method="post" class="form-group">
+                    <label for="replyFormComment">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; &nbsp; Your comment</label>
+                    {% csrf_token %}
                {% include 'includes/form.html' %}
-                <button
-                  type="submit"
-                  class="btn btn-success">
-                  Post Comment </button>
-            {% endif%}
+                  </div>
+                  <div class="text-center mt-4">
+                    <button class="btn btn-info btn-md" type="submit">Post</button>
+                  </div>
+                </form>
+                 {% endif%}
+                <!-- Default form comment -->
+              </div>
+            </div>
             
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+        
+
+
 
 {% endblock%}
