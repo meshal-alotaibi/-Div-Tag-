@@ -14,10 +14,7 @@ class Category(models.Model):
     def __str__(self):
        return self.name
 
-    # def  get_posts_count(self):
-    #     return Post.objects.filter(topic__category=self).count()
-#  1=>m relation between Board and Topic
-#  one borde can have many topic 
+
 
 class Topic(models.Model):
     #  1=>m relation between Board and Topic
