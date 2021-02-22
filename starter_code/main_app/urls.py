@@ -31,6 +31,8 @@ urlpatterns = [
          views.postUpdate.as_view(), name='update_post'),
     path('category/<int:category_id>/topics/<int:topic_id>/delete/<int:pk>/',
          views.postDelete.as_view(), name='delete_post'),
+     path('category/<int:category_id>/',
+         views.category_topics, name='topics'),
 
     
 ]
