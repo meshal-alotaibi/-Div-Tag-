@@ -15,6 +15,21 @@ class Category(models.Model):
        return self.name
 
 
+    def get_posts_count(self):
+        return Post.objects.filter(topic__category=self).count()
+
+    def get_topic_count(self):
+        return Topic.objects.filter(category=self).count()
+
+    def get_last_post(self):
+        return Post.objects.filter(topic__category=self).order_by('-created_dt').first()
+
+     
+
+    # def  get_posts_count(self):
+    #     return Post.objects.filter(topic__category=self).count()
+#  1=>m relation between Board and Topic
+#  one borde can have many topic 
 
 class Topic(models.Model):
     #  1=>m relation between Board and Topic
@@ -42,10 +57,14 @@ class Post(models.Model):
     created_by= models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE)
     created_dt = models.DateTimeField(default=timezone.now)
      
+
+
     # method convert object to string
 
 
-
+def __str__(self):
+    truncted_message = Truncator(self.message)
+    return truncted_message.chars(30)
        
 
 
