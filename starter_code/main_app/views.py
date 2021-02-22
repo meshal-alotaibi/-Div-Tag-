@@ -30,27 +30,6 @@ def category_topics(request, category_id):
 
 
 
-@login_required
-def topic(request, category_id , topic_id):
-    topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
-    SESSION_KEY = 'view_topic_{}'.format(topic.pk)
-    if not request.session.get(SESSION_KEY,False):
-        topic.views +=1
-        topic.save()
-        request.session[SESSION_KEY]=True
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.topic = topic
-            post.created_by = request.user
-            post.save()
-
-            return redirect('topic', category_id=topic.category.id, topic_id=topic.pk)
-    else:
-        form = PostForm()
-    return render(request, 'topic.html', {'topic': topic , 'form' : form})
-
 def signup(request):
     form=CreateUserForm()
     if request.method =='POST':
@@ -60,28 +39,6 @@ def signup(request):
             auth_login(request,user)
             return redirect('/')
     return render(request,'signup.html',{'form':form})
-
-
-def new_topic(request,category_id):
-    category = get_object_or_404(Category,pk=category_id)
-    if request.method == 'POST':
-        subject = request.POST['subject']
-        message = request.POST['message']
-        user = User.objects.first()
-
-        topic = Topic.objects.create(
-            subject=subject,
-            category=category,
-            created_by=user
-        )
-
-        post = Post.objects.create(
-            message=message,
-            topic=topic,
-            created_by=user
-        )
-        return redirect('category_topics',category_id=category.pk)
-    return render(request,'new_topic.html',{'category':category})
 
 
 
@@ -121,6 +78,28 @@ class topicDelete(DeleteView):
         category = topic.category.pk
         return reverse('category_topics', args=[category]
                        )
+
+@login_required
+def create_post(request, category_id, topic_id):
+    topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
+    categories = Category.objects.all()
+    SESSION_KEY = 'view_topic_{}'.format(topic.pk)
+    if not request.session.get(SESSION_KEY, False):
+        topic.views += 1
+        topic.save()
+        request.session[SESSION_KEY] = True
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.topic = topic
+            post.created_by = request.user
+            post.save()
+
+            return redirect('topic', category_id=topic.category.id, topic_id=topic.pk)
+    else:
+        form = PostForm()
+    return render(request, 'topic.html', {'topic': topic, 'form': form, 'categories': categories})
 
 
 class postUpdate(UpdateView):
