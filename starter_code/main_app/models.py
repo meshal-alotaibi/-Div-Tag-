@@ -63,9 +63,9 @@ class Post(models.Model):
     # method convert object to string
 
 
-def __str__(self):
-    truncted_message = Truncator(self.message)
-    return truncted_message.chars(30)
+    def __str__(self):
+        truncted_message = Truncator(self.message)
+        return truncted_message.chars(30)
        
 
 

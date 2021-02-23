@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blogs',
-        'PASSWORD':'1567',
+        'PASSWORD':'0564305522',
         'USER': 'postgres',
     }
 }
@@ -125,3 +125,7 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL='login'
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+
