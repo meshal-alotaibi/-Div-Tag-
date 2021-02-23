@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title%}my account{% endblock%}
+{% block content %}
+<div class="content-section">>
+        <h2 class="account"ALIGN = "center">{{ user.username }}</h2>
+        <p class="email" ALIGN = "center" >{{ user.email }}</p>
+      </div>
+    </div>
+<form method="post" ALIGN='center'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="replay btn btn-sm btn-outline-success" value="Submit!">
+</form>
+{% endblock %}

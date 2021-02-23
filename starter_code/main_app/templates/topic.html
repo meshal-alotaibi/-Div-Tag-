@@ -7,20 +7,19 @@
 {% block content %}
 
   <!--Main layout-->
-  <main class="mt-4 pt-4">
+  <main class="mt-8 pt-4">
     <div class="container">
 
       <!--Section: Post-->
       <section class="mt-4">
 
-        <!--Grid row-->
-        <div class="row">
+        <div>
 
           <!--Grid column-->
-          <div class="col-md-8 mb-4">
+          <div class="mb-8">
 
             <!--Featured Image-->
-            <div class="card mb-4 wow fadeIn">
+            <div class="card mb-4 wow fadeIn" >
 
               <img src="{{topic.img}}" class="img-fluid" alt="{{topic.subject}}">
 
@@ -34,8 +33,7 @@
               <!--Card content-->
               <div class="card-body">
                  {% if topic.created_by == user %}
-         
-                <p>
+                <p Align="right">
                   <a href="{% url 'update_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-success">edit</a>
                   <a href="{% url 'delete_topic'  topic.category_id topic.id  %}" class="replay btn btn-sm btn-outline-danger">delete</a>
                 </p>
@@ -61,7 +59,9 @@
 
 
             <!--/.Card-->
+            {% if topic.posts.all %}
              <h3>comments</h3>
+             {%endif%}
             <!--commentCard-->
              {% for post in topic.posts.all %}
             <div class="card mb-4 wow fadeIn">
@@ -82,7 +82,7 @@
                     {{post.message}}
                   </div>
                   {% if post.created_by == user %}
-                <p>
+                <p Align="right">
                   <a href="{% url 'update_post' post.topic.category_id post.topic_id post.id %}" class="replay btn btn-sm btn-outline-success">edit</a>
                   <a href="{%url 'delete_post' post.topic.category_id post.topic_id post.id%}" class="replay btn btn-sm btn-outline-danger">delete</a>
                 </p>
@@ -105,16 +105,17 @@
               <div class="card-body">
               {% if user.is_authenticated %}
                 <!-- Default form comment -->
-                <form>
-
+                
                   <!-- Comment -->
-                  <div method="post" class="form-group">
+                  <form method="post" class="form-group">
                     <label for="replyFormComment">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; &nbsp; Your comment</label>
                     {% csrf_token %}
                {% include 'includes/form.html' %}
-                  </div>
                   <div class="text-center mt-4">
-                    <button class="btn btn-info btn-md" type="submit">Post</button>
+                    <button
+                  type="submit"
+                  class="btn btn-info btn-md">
+                  Post Comment </button>
                   </div>
                 </form>
                  {% endif%}
