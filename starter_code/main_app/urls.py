@@ -12,8 +12,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('setting/change_password', auth_views.PasswordChangeView.as_view(
         template_name='chang_pass.html'), name='change_password'),
-    path('setting/change_password_successful',
-         auth_views.PasswordChangeDoneView.as_view(template_name='pass_done.html'), name='pass_done'),
+    path('/change_password_successful',
+         auth_views.PasswordChangeDoneView.as_view(template_name='PasswordChangeDone.html'), name='password_change_done'),
 
     #url for the topics page 
     # url CRUD for topic
@@ -33,6 +33,8 @@ urlpatterns = [
          views.postDelete.as_view(), name='delete_post'),
      path('category/<int:category_id>/',
          views.category_topics, name='topics'),
+
+      
 
     
 ]
