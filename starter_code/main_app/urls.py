@@ -34,6 +34,8 @@ urlpatterns = [
          views.postDelete.as_view(), name='delete_post'),
      path('category/<int:category_id>/',
          views.category_topics, name='topics'),
+     path('search',views.search,name='search' )    
+
 
       
 

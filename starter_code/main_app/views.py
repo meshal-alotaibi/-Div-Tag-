@@ -1,5 +1,5 @@
 import django
-from django.http.response import Http404
+from django.http.response import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import SESSION_KEY, login as auth_login
@@ -8,7 +8,7 @@ from .models import Category , Topic , Post
 from .forms import PostForm, NewTopicForm, CreateUserForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, query
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.urls import reverse
 from django.db.models import Q
@@ -115,17 +115,12 @@ class postDelete(DeleteView):
         return reverse('topic', args=[category, topic]
                        )
 
-def search(query=None):
-    queryset=[]
-    queries=query.split(" ")
-    for q in queries:
-        topics=Topic.objects.filter(
-            Q(subject__icontrains=q)
-        ).distinct()
-
-        for topic in topics:
-            queryset.append(topic)
-    return list(set(queryset))        
+        
 
 
-                       
+def search(request):
+    query = request.GET.get('q')
+    print(query)
+    category=Category.objects.filter(name=query)
+    return HttpResponse(category)
+    
