@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.urls import reverse
+from django.db.models import Q
 # Create your views here.
 
 def index(request):
@@ -121,5 +122,17 @@ class postDelete(DeleteView):
         topic = post.topic_id
         return reverse('topic', args=[category, topic]
                        )
+
+def search(query=None):
+    queryset=[]
+    queries=query.split(" ")
+    for q in queries:
+        topics=Topic.objects.filter(
+            Q(subject__icontrains=q)
+        ).distinct()
+
+        for topic in topics:
+            queryset.append(topic)
+    return list(set(queryset))        
 
 
