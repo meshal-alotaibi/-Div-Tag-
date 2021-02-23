@@ -14,6 +14,7 @@ urlpatterns = [
         template_name='chang_pass.html'), name='change_password'),
     path('/change_password_successful',
          auth_views.PasswordChangeDoneView.as_view(template_name='PasswordChangeDone.html'), name='password_change_done'),
+    path('account/',views.UserUpdateView.as_view(),name='my_account'),
 
     #url for the topics page 
     # url CRUD for topic

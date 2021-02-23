@@ -12,25 +12,20 @@ from django.db.models import Count
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.urls import reverse
 from django.db.models import Q
+from django.views.generic import UpdateView
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 # Create your views here.
-
 def index(request):
     category = Category.objects.all()
     topic = Topic.objects.all()
     print(category)
     return render(request, 'home.html', {'categories': category , 'topics':topic})
-
-
 def category_topics(request, category_id):
     categories = Category.objects.all()
     category = get_object_or_404(Category ,pk=category_id)
     topics = category.topics.order_by('-created_dt').annotate(topicPost=Count('posts'))
-
     return render(request, 'topics.html', {'categories': categories, 'category': category,'topics':topics})
-
-
-
-
 def signup(request):
     form=CreateUserForm()
     if request.method =='POST':
@@ -40,6 +35,14 @@ def signup(request):
             auth_login(request,user)
             return redirect('/')
     return render(request,'signup.html',{'form':form})
+class UserUpdateView(UpdateView):
+      model = User
+      fields = ('first_name','last_name','email')
+      template_name = 'my_account.html'
+      success_url = reverse_lazy('my_account')
+
+      def get_object(self):
+          return self.request.user
 
 
 
@@ -47,39 +50,29 @@ class topicCreate(CreateView):
   model = Topic
   fields = ['subject',
             'content_text', ]
-
   def form_valid(self, form):
     form.instance.created_by_id = self.request.user.id
     form.instance.category_id = self.kwargs['category_id']
     return super(topicCreate, self).form_valid(form)
-
   def get_success_url(self):
       topic = get_object_or_404(Topic, pk=self.object.id)
       return reverse('topic', args=[topic.category.pk, self.object.id]
                      )
-
-
-
 class topicUpdate(UpdateView):
     model = Topic
     fields = ['subject',
               'content_text',]
-
     def get_success_url(self):
         topic = get_object_or_404(Topic, pk=self.object.id)
         return reverse('topic', args=[topic.category.pk , self.object.id]
                        )
-
-
 class topicDelete(DeleteView):
     model = Topic
-
     def get_success_url(self):
         topic = get_object_or_404(Topic, pk=self.object.id)
         category = topic.category.pk
         return reverse('category_topics', args=[category]
                        )
-
 @login_required
 def create_post(request, category_id, topic_id):
     topic = get_object_or_404(Topic, category__pk=category_id, pk=topic_id)
@@ -96,26 +89,20 @@ def create_post(request, category_id, topic_id):
             post.topic = topic
             post.created_by = request.user
             post.save()
-
             return redirect('topic', category_id=topic.category.id, topic_id=topic.pk)
     else:
         form = PostForm()
     return render(request, 'topic.html', {'topic': topic, 'form': form, 'categories': categories})
-
-
 class postUpdate(UpdateView):
     model = Post
     fields = ['message', ]
-
     def get_success_url(self):
         post = get_object_or_404(Post, pk=self.object.id)
         category = post.topic.category.pk
         topic = post.topic_id
         return reverse('topic', args=[category, topic])
-
 class postDelete(DeleteView):
     model = Post
-
     def get_success_url(self):
         post = get_object_or_404(Post, pk=self.object.id)
         category = post.topic.category.pk
@@ -136,3 +123,4 @@ def search(query=None):
     return list(set(queryset))        
 
 
+                       
