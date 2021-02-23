@@ -23,7 +23,7 @@
              Welecome {{user.username}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="{% url 'my_account' %}">my account</a>
             <a class="dropdown-item" href="{%url 'change_password'%}">change password </a>
              <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
           </div>
