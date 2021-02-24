@@ -8,50 +8,20 @@
 {% block content %} {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
-<!-- 
-{% if user.is_authenticated %}
-<a href="{% url 'create_topic' category.pk %}" class="btn btn-primary">New topic</a>
-{% endif %}
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th>Topic</th>
-        <th>Created by</th>
-        <th>Posts</th>
-        <th>Views</th>
-        <th>Created date</th>
-    </tr>
-    </thead>
-    <tbody>
-    {%for topic in topics%}
-    <tr>
-        <td><a href="{%url 'topic' category.pk  topic.pk%}">{{ topic.subject}}</a></td>
-        <td>{{ topic.created_by.username}}</td>
-        <td>{{topic.topicPost}}</td>
-        <td>{{topic.comments}}</td>
-        <td>{{topic.views}}</td>
-        <td>{{ topic.created_dt}}</td>
-    </tr>
-    {%endfor%}
-    </tbody>
-</table> -->
 <div class="container">
   <div class="row">
     <div class="col-sm">
-      <a
-        class="btn btn-secondary"
+      <a class="btn btn-secondary"
         href="{% url 'create_topic' category.pk %}"
-        class="btn btn-primary"
-        >New topic</a
-      >
+        class="btn btn-primary">New topic</a>
     </div>
   </div>
 </div>
-<div class="container" style="display: flex; flex-wrap: wrap; width: 800px">
+<div class="container">
+<div class="row mb-2">
   {%for topic in topics%}
-  <!-- <div class="row"> -->
-  <div class="col-sm">
-    <div class="card">
+  <div class="col-md-6">
+    <div class="card flex-md-row mb-4 box-shadow h-md-250">
       <div class="additional">
         <div class="user-card">
           <div class="points center">{{topic.topicPost}} Post</div>
