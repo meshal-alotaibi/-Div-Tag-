@@ -119,8 +119,10 @@ class postDelete(DeleteView):
 
 
 def search(request):
+    categories = Category.objects.all()
+
     query = request.GET.get('q')
     print(query)
     category=Category.objects.filter(name=query)
-    return HttpResponse(category)
+    return render(request,'search.html',{"categories":categories,"category":category})
     
