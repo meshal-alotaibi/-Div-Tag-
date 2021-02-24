@@ -1,29 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Bootstrap CSS -->
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/bootstrap.min.css' %}"
-    />
-    <title>{% block title%} {% endblock%}</title>
-  </head>
-  <body>
-    <div class="container">
-
     <head>
          <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">  
-       
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <!--title block make title dynamic allow us to change title in everypage extended base-->
@@ -33,46 +14,10 @@
         <!-- Navbbar -->
         <div class="container">
           <!-- header -->
-
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
-
           <!-- left part of navbbar -->
           <div class="col-4 pt-1">
-
-            {%if user.is_authenticated%}
-            <div class="dropdown show">
-              <a
-                class="dropdown-toggle btn btn-sm btn-outline-secondary"
-                href="#"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Welecome {{user.username}}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="{% url 'my_account' %}"
-                  >my account</a
-                >
-                <a class="dropdown-item" href="{%url 'change_password'%}"
-                  >change password
-                </a>
-                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
-              </div>
-            </div>
-            {%else%}
-            <form class="form-inline ml-auto">
-              <a class="btn btn-sm btn-outline-secondary" href="/signup"
-                >Sign up</a
-              >
-              <a class="btn btn-sm btn-outline-secondary" href="/login"
-                >log in</a
-              >
-            </form>
-            {%endif%}
-
              <!-- if user login show name and some feature -->
         {%if user.is_authenticated%}
         <div class="dropdown show">
@@ -93,39 +38,11 @@
           </form> 
         {%endif%}
         <!-- end if  -->   
-
           </div>
            <!-- center  part of navbbar -->
           <div class="col-4 text-center">
             <a class="blog-header-logo text-dark" href="/">DivTag</a>
           </div>
-
-
-          <!-- <div class="col-4 d-flex justify-content-end align-items-center"> -->
-          <div class="col-sm-3 col-md-3">
-            <form method="GET" action="{% url 'search' %}" id="searchform">
-              <input
-                type="text"
-                class="searchfield"
-                id="searchbox"
-                name="q"
-                value="{{request.GET.q}}"
-                placeholder="search...."
-                type="text"
-              />
-
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search">search</i>
-              </button>
-            </form>
-          </div>
-
-          <!-- </div> -->
-        </div>
-      </header>
-      <hr />
-      <div class="nav-scroller py-1 mb-2">
-
           <!-- right  part of navbbar -->
             <div class="col-sm-3 col-md-3">
               <form  method="GET" action="{% url 'search' %}" id="searchform">
@@ -139,22 +56,18 @@
       <hr>
       <!-- buttom part of nav that display all category using loop  -->
         <div class="nav-scroller py-1 mb-2">
-
         <nav class="nav d-flex justify-content-between">
-          {% for category in categories %}
-          <a class="p-2 text-muted" href="{% url 'topics' category.pk %}"
-            >{{category.name}}</a
-          >
+             {% for category in categories %}
+          <a class="p-2 text-muted" href="{% url 'topics' category.pk %}">{{category.name}}</a>   
           {%endfor%}
         </nav>
       </div>
-
-    </div>
-
-    {% block content %} {% endblock%}
-    <script src="{%static 'js/jquery-3.5.1.min.js'%}"></script>
-    <script src="{%static 'js/popper.min.js'%}"></script>
-    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+      <!-- end of buttom part  -->
+        </div>
+       <!-- content block that allow us to change content in every page extended base -->
+       {% block content %}
+       {% endblock%}
+      
 
     <footer 
       class="text-center text-white fixed-bottom"
@@ -163,26 +76,17 @@
       <!-- Grid container -->
       <div class="container p-4"></div>
       <!-- Grid container -->
-
-      <!-- end of buttom part  -->
-        </div>
-
-       <!-- content block that allow us to change content in every page extended base -->
-       {% block content %}
-       {% endblock%}
-  
-
-       <!-- JQuery , JS and Bootstrap  -->
-      <script src="{%static 'js/jquery-3.5.1.min.js'%}"></script>
-      <script src="{%static 'js/popper.min.js'%}"></script>
-      <script src="{%static 'js/bootstrap.min.js'%}"></script>
-
-
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgb(124, 124, 124)">
         © 2021 DivTag
       </div>
       <!-- Copyright -->
     </footer>
+ 
+     <!-- JQuery , JS and Bootstrap  -->
+      <script src="{%static 'js/jquery-3.5.1.min.js'%}"></script>
+      <script src="{%static 'js/popper.min.js'%}"></script>
+      <script src="{%static 'js/bootstrap.min.js'%}"></script>
+
   </body>
 </html>
