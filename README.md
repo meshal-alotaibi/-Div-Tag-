@@ -15,8 +15,9 @@ This project was built using:
 - Django
 - Bootstrap
 - pgAdmin 
-
-
+- Python
+- Html
+- CSS
 ## Wireframes
 **Here are simple photos showcasing the wireframe of the project.**
 
