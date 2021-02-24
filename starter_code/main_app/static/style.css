@@ -156,5 +156,9 @@ hr {
     right: 1rem;
     font-size: 0.9em;
   }
-  .Topic{
+  footer {
+    text-align: center;
+    padding: 3px;
+    background-color: DarkSalmon;
+    color: white;
   }
