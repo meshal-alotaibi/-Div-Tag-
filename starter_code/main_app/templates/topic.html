@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
  {% load static %} 
- {% block title%}
-  {{topic.subject}}
-{% endblock%} 
+ 
+ {% block title%} {{topic.subject}} {% endblock%} 
 
 {% block content %}
 
@@ -12,7 +11,6 @@
 
       <!--Section: Post-->
       <section class="mt-4">
-
         <div>
 
           <!--Grid column-->
@@ -20,12 +18,9 @@
 
             <!--Featured Image-->
             <div class="card mb-4 wow fadeIn" >
-
               <img src="{{topic.img}}" class="img-fluid" alt="{{topic.subject}}">
-
             </div>
             <!--/.Featured Image-->
-
 
             <!--Card-->
             <div class="card mb-4 wow fadeIn">
@@ -39,8 +34,6 @@
                 </p>
                 {%endif%}
                 <p class="h1 my-4">{{topic.subject}} </p>
-
-
                 <blockquote class="blockquote">
                   <footer class="blockquote-footer">Created by : 
                     <cite title="Source Title">{{topic.created_by.username}}</cite>
@@ -48,31 +41,24 @@
                      {{topic.created_dt}}</small> </cite>
                   </footer>
                 </blockquote>
-
-
                 <p>{{topic.content_text}}</p>
-
               </div>
-
             </div>
               
-
-
             <!--/.Card-->
             {% if topic.posts.all %}
              <h3>comments</h3>
              {%endif%}
+
             <!--commentCard-->
              {% for post in topic.posts.all %}
             <div class="card mb-4 wow fadeIn">
-
               <div class="card-header font-weight-bold">
                 <span>{{post.created_by.username}} </span>
               </div>
 
               <!--commentCard content-->
               <div class="card-body">
-
                 <div class="media d-block d-md-flex mt-3">
                   <img class="d-flex mb-3 mx-auto z-depth-1" src="{% static 'img/user.png' %}"
                     alt="Generic placeholder image" style="width: 100px;">
@@ -88,15 +74,12 @@
                 </p>
                 {%endif%}
                 </div>
-
               </div>
-
             </div>
              {%endfor%}
             <!--/.commentCard-->
-
-               <!--/.Comments-->
-
+ 
+            <!--/.Comments-->
 
             <h3>Leave a Comment </h3>
             <!--CreateComment-->
@@ -122,11 +105,4 @@
                 <!-- Default form comment -->
               </div>
             </div>
-            
-
-
-        
-
-
-
 {% endblock%}

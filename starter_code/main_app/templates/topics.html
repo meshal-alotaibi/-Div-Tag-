@@ -1,13 +1,11 @@
-{% extends 'base.html' %} {%block title%}{{category.name}} {%endblock%}
+{% extends 'base.html' %} 
+{%block title%}{{category.name}} {%endblock%}
 
-<!-- {% block breadcrumb %} -->
-<!-- <li><a href="/">Boards</a></li>
-<li>{{category.name}}</li>
-{%endblock%} -->
-
-{% block content %} {% load static %}
+{% block content %} 
+{% load static %}
+ <!-- CCS -->
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-
+ <!-- new topic button  -->
 <div class="container">
   <div class="row">
     <div class="col-sm">
@@ -17,38 +15,37 @@
     </div>
   </div>
 </div>
+<!-- ./new topic button  -->
+
+<!-- container of cards   -->
 <div class="container">
+  <!-- row  contain 2 cards -->
 <div class="row mb-2">
+    <!-- loop return topic in topics  -->
   {%for topic in topics%}
+    <!-- cloumn  -->
   <div class="col-md-6">
+     <!-- card -->
     <div class="card flex-md-row mb-4 box-shadow h-md-250">
+       <!-- card left -->
       <div class="additional">
+         <!-- card static left -->
         <div class="user-card">
           <div class="points center">{{topic.topicPost}} Post</div>
-          <svg
-            width="110"
-            height="110"
-            viewBox="0 0 250 250"
+          <svg width="110" height="110" viewBox="0 0 250 250"
             xlink:href="https://www.clipartmax.com/png/middle/216-2164926_desktop-computer-with-binary-codes-icons-programming-icon.png"
-            role="img"
-            aria-labelledby="title desc"
-            class="center"
-          >
-            <image
-              width="300"
-              height="200"
-              viewBox="0 0 250 250"
-              xlink:href="https://www.flaticon.com/svg/vstatic/svg/1006/1006363.svg?token=exp=1614113375~hmac=b1838fab697b8d63f3582fc4a17e6faf"
-            ></image>
+            role="img" aria-labelledby="title desc" class="center">
+            <image width="300" height="200"viewBox="0 0 250 250"
+              xlink:href="https://www.flaticon.com/svg/vstatic/svg/1006/1006363.svg?token=exp=1614113375~hmac=b1838fab697b8d63f3582fc4a17e6faf">
             <title id="title">Topic</title>
             <desc id="desc">Programming Languges.</desc>
           </svg>
         </div>
+         <!-- ./card static left -->
+        <!-- card dynamic left  -->
         <div class="more-info">
           <h1>
-            <br /><a href="{%url 'topic' category.pk  topic.pk%}"
-              >{{ topic.subject}}</a
-            >
+            <br/><a href="{%url 'topic' category.pk  topic.pk%}">{{ topic.subject}}</a>
           </h1>
           <div class="coords"></div>
           <div class="stats">
@@ -59,7 +56,10 @@
             </div>
           </div>
         </div>
+        <!-- ./card dynamic left  -->
       </div>
+      <!-- ./card left -->
+      <!-- card right -->
       <div class="general">
         <h3><br />{{ topic.subject}}</h3>
         <h6>Created By:</h6>
@@ -68,10 +68,14 @@
         <p>{{ topic.created_dt}}</p>
         <span class="more">Mouse over the card for more info</span>
       </div>
+      <!-- card right -->
     </div>
+     <!-- ./card  -->
   </div>
-  <!-- </div> -->
-
+   <!-- ./column -->
   {%endfor%}
 </div>
+ <!-- ./row-->
+ </div>
+  <!-- ./container-->
 {% endblock%}

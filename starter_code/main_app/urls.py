@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    # url home/main page 
     path('', views.index, name='index'),
 
     #url for authintication user and logIn , logOut , sginUp and changePassword
@@ -17,6 +18,9 @@ urlpatterns = [
     path('account/',views.UserUpdateView.as_view(),name='my_account'),
 
     #url for the topics page 
+    path('category/<int:category_id>/',
+         views.topics, name='topics'),
+
     # url CRUD for topic
     path('category/<int:category_id>/new/',
          views.topicCreate.as_view(), name='create_topic'),
@@ -32,8 +36,8 @@ urlpatterns = [
          views.postUpdate.as_view(), name='update_post'),
     path('category/<int:category_id>/topics/<int:topic_id>/delete/<int:pk>/',
          views.postDelete.as_view(), name='delete_post'),
-     path('category/<int:category_id>/',
-         views.category_topics, name='topics'),
+  
+    # url for the search page .
      path('search',views.search,name='search' )    
 
 

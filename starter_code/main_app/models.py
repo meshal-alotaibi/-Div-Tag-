@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+#---------------------------- Categoty ---------------------------- #
 
 class Category(models.Model):
     name = models.CharField(max_length=50,unique=True)
@@ -14,20 +15,22 @@ class Category(models.Model):
     def __str__(self):
        return self.name
 
-
+    #get_posts_count return the number of post in all topic in specific category
     def get_posts_count(self):
         return Post.objects.filter(topic__category=self).count()
 
+   #gget_topic_count return the number of topic in specific category
     def get_topic_count(self):
         return Topic.objects.filter(category=self).count()
 
+    #gget_last_topic return the last topic wrote in specific category 
     def get_last_topic(self):
         return Topic.objects.filter(category=self).order_by('-created_dt').first()
 
-     
 
-    # def  get_posts_count(self):
-    #     return Post.objects.filter(topic__category=self).count()
+#---------------------------- Topic ----------------------------#
+
+
 #  1=>m relation between Board and Topic
 #  one borde can have many topic 
 
@@ -44,13 +47,11 @@ class Topic(models.Model):
     views= models.PositiveIntegerField(default=0)
     img = models.CharField(max_length=1000)
     
-
     # method convert object to string
-
     def __str__(self):
        return self.subject
 
-
+#---------------------------- Post ----------------------------#
 
 class Post(models.Model):
     message= models.TextField(max_length=200)
@@ -58,11 +59,7 @@ class Post(models.Model):
     created_by= models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE)
     created_dt = models.DateTimeField(default=timezone.now)
      
-
-
     # method convert object to string
-
-
     def __str__(self):
         truncted_message = Truncator(self.message)
         return truncted_message.chars(30)

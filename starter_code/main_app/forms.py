@@ -1,18 +1,11 @@
 from django import forms
 from django.db import models
 from django.forms import fields
-from.models import Post , Topic
+from.models import Post 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-
-
-class NewTopicForm(forms.ModelForm):
-    class Meta:
-        model = Topic
-        fields = ['subject',
-                  'content_text'
-                  ]
+#  Create post-form with message field
 class PostForm(forms.ModelForm):
 
     class Meta:
