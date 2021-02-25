@@ -61,7 +61,7 @@ class UserUpdateView(UpdateView):
 class topicCreate(CreateView):
   model = Topic
   fields = ['subject',
-            'content_text', ]
+            'content_text','img', ]
 
   def form_valid(self, form):
     form.instance.created_by_id = self.request.user.id

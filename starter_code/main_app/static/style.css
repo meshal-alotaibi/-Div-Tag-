@@ -117,7 +117,7 @@ hr {
     color: #fff;
   }
   .card.green .additional .stats {
-    color: rgb(172, 195, 225);;
+    color: rgb(172, 195, 225);
   }
   .card .additional .stats > div {
     flex: 1;
