@@ -65,7 +65,7 @@
                   <div class="media-body text-center text-md-left ml-md-3 ml-0">
                     <h5 class="mt-0 font-weight-bold">{{post.created_dt}}
                     </h5>
-                    {{post.message}}
+                    {{post.comment}}
                   </div>
                   {% if post.created_by == user %}
                 <p Align="right">
@@ -91,7 +91,6 @@
                 
                   <!-- Comment -->
                   <form method="post" class="form-group">
-                    <label for="replyFormComment">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  &nbsp; &nbsp; Your comment</label>
                     {% csrf_token %}
                {% include 'includes/form.html' %}
                   <div class="text-center mt-4">

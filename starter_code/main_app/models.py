@@ -54,15 +54,15 @@ class Topic(models.Model):
 #---------------------------- Post ----------------------------#
 
 class Post(models.Model):
-    message= models.TextField(max_length=200)
+    comment= models.TextField(max_length=200)
     topic= models.ForeignKey(Topic,related_name='posts',on_delete=models.CASCADE)   
     created_by= models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE)
     created_dt = models.DateTimeField(default=timezone.now)
      
     # method convert object to string
     def __str__(self):
-        truncted_message = Truncator(self.message)
-        return truncted_message.chars(30)
+        truncted_comment = Truncator(self.comment)
+        return truncted_comment.chars(30)
        
 
 

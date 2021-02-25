@@ -77,7 +77,7 @@ class topicCreate(CreateView):
 class topicUpdate(UpdateView):
     model = Topic
     fields = ['subject',
-              'content_text',]
+              'content_text','img',]
     def get_success_url(self):
         topic = get_object_or_404(Topic, pk=self.object.id)
         return reverse('topic', args=[topic.category.pk , self.object.id]
@@ -89,7 +89,7 @@ class topicDelete(DeleteView):
     def get_success_url(self):
         topic = get_object_or_404(Topic, pk=self.object.id)
         category = topic.category.pk
-        return reverse('category_topics', args=[category]
+        return reverse('topics', args=[category]
                        )
 
 #------------------------------ POST ------------------------------#
@@ -121,7 +121,7 @@ def create_post(request, category_id, topic_id):
 # Update post view allow user to update message "comment text " of specific topic.
 class postUpdate(UpdateView):
     model = Post
-    fields = ['message', ]
+    fields = ['comment', ]
     def get_success_url(self):
         post = get_object_or_404(Post, pk=self.object.id)
         category = post.topic.category.pk
